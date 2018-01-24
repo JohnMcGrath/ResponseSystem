@@ -13,6 +13,7 @@
 #include "SDL_ttf.h"
 #include "SDL_image.h"
 #include "Renderer.h"
+#include "Player.h"
 /** The game objct whic manages the game loop*/
 class Game:public EventListener
 {
@@ -63,6 +64,7 @@ public:
 	void onEvent(EventListener::Event);
 
 private:
+	Player* m_player = new Player(gameRenderer);
 
 };
 

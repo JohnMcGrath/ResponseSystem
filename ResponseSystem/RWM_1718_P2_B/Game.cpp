@@ -46,13 +46,23 @@ void Game::destroy()
 //** calls update on all game entities*/
 void Game::update()
 {
+	render();
 }
 
 //** calls render on all game entities*/
 
 void Game::render()
 {
+	//Set the background colour
+	SDL_SetRenderDrawColor(gameRenderer, 255, 0, 0, 255);
 	SDL_RenderClear(gameRenderer);
+	
+	SDL_SetRenderDrawColor(gameRenderer, 0, 0, 255, 255);
+	SDL_RenderFillRect(gameRenderer, m_player->GetRect());
+
+	SDL_SetRenderDrawColor(gameRenderer, 255, 255, 255, 255);
+	SDL_RenderDrawRect(gameRenderer, m_player->GetRect());
+
 	SDL_RenderPresent(gameRenderer);
 }
 
