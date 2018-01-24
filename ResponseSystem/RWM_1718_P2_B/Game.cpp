@@ -25,6 +25,13 @@ Game::Game()
 
 	gameWindow = SDL_CreateWindow("Response System", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	gameRenderer = SDL_CreateRenderer(gameWindow, -1, SDL_RENDERER_PRESENTVSYNC);
+
+	pShape.m_p.Set(100, 100);
+	pBodyDef.type = b2_dynamicBody;
+	pBodyDef.position.Set(100, 100);
+
+	pBody = world.CreateBody(&pBodyDef);
+	pBody->CreateFixture(&pShape, 1.0f);
 }
 
 
@@ -46,6 +53,16 @@ void Game::destroy()
 //** calls update on all game entities*/
 void Game::update()
 {
+	//Update the Box2D World
+	world.Step(0.1f, 10, 100);
+
+	pBody->ApplyForce(b2Vec2(5, 1), b2Vec2(m_player->GetRect()->w / 2, m_player->GetRect()->h / 2), false);
+
+	m_player->GetRect()->x = pBody->GetPosition().x;
+	m_player->GetRect()->y = pBody->GetPosition().y;
+
+	std::cout << "Player Body: " << pBody->GetPosition().x << ", " << pBody->GetPosition().y << std::endl;
+
 	render();
 }
 
@@ -75,7 +92,6 @@ void Game::loop()
 	while (!quit)
 	{
 		capTimer.start();
-		render();
 		update();
 	}
 

@@ -35,6 +35,8 @@ class Game:public EventListener
 	SDL_Window* gameWindow;
 	SDL_Renderer* gameRenderer;
 
+	b2World world = b2World(b2Vec2(0,9.81));
+
 	bool gameRunning = true;
 	bool musicPlaying = false;
 
@@ -65,6 +67,10 @@ public:
 
 private:
 	Player* m_player = new Player(gameRenderer);
+
+	b2CircleShape pShape;
+	b2BodyDef pBodyDef;
+	b2Body* pBody;
 
 };
 
