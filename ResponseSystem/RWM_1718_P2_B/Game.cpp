@@ -17,6 +17,12 @@ const int SCREEN_HEIGHT = 600;
 
 Game::Game()
 {
+	//Initialises SDL Image to use PNGs
+	if (!(IMG_Init(IMG_INIT_PNG)))
+	{
+		std::cout << "Error : PNG Did not load";
+	}
+
 	gameWindow = SDL_CreateWindow("Response System", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	gameRenderer = SDL_CreateRenderer(gameWindow, -1, SDL_RENDERER_PRESENTVSYNC);
 }

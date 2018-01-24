@@ -11,6 +11,7 @@
 #include "Box2D\Box2D.h"
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include "SDL_image.h"
 #include "Renderer.h"
 /** The game objct whic manages the game loop*/
 class Game:public EventListener
