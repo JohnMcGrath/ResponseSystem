@@ -1,18 +1,11 @@
 #pragma once
-#include <vector>
-#include "EventListener.h"
-#include "LTimer.h"
-#include <string>
-#include <cstring>
-#include <stdlib.h>
-#include <stdio.h>
-#include <iostream>
-#include "Box2D\Box2D.h"
 #include "SDL.h"
 #include "SDL_ttf.h"
 #include "SDL_image.h"
 #include "Renderer.h"
 #include "Player.h"
+#include "ResponseSystemFunction.h"
+
 /** The game objct whic manages the game loop*/
 class Game:public EventListener
 {
@@ -77,5 +70,7 @@ private:
 	b2PolygonShape fShape;
 	b2BodyDef fBodyDef;
 	b2Body* fBody;
+
+	ResponseSystemFunction m_rsSysFun = ResponseSystemFunction(b2Vec2(0,0),1,1,1,"1");
 };
 

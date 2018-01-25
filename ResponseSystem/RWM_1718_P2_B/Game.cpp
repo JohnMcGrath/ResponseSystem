@@ -64,13 +64,17 @@ void Game::update()
 
 	m_player->GetRect()->x = pBody->GetPosition().x;
 	m_player->GetRect()->y = pBody->GetPosition().y;
-	std::cout << "Player Body: " << pBody->GetPosition().x << ", " << pBody->GetPosition().y << std::endl;
+	//std::cout << "Player Body: " << pBody->GetPosition().x << ", " << pBody->GetPosition().y << std::endl;
 
 
 	fRect.w = SCREEN_WIDTH;
 	fRect.h = 20;
 	fRect.x = fBody->GetPosition().x;
 	fRect.y = fBody->GetPosition().y;
+
+	float tempAngle;
+	tempAngle = m_rsSysFun.GetImpulses()[0].forceScaler;
+	std::cout << "ForceScaler: " << tempAngle << std::endl;
 
 //	std::cout << "Floor Body: " << fBody->GetPosition().x << ", " << fBody->GetPosition().y << std::endl;
 //	std::cout << "Floor Rect: " << fRect.x << ", " << fRect.y << std::endl;
