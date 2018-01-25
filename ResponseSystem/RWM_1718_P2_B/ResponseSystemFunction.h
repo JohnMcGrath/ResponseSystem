@@ -9,23 +9,34 @@
 #include "EventListener.h"
 #include "LTimer.h"
 
+struct Impulse
+{
+	b2Vec2 offSetPos;
+	float forceScaler;
+	float angle;
+	float delay;
+	bool onOff = false;
+	std::string id;
+};
+
+struct ResponsePair
+{
+	std::string bodyName;
+	std::string impulseName;
+};
+
 class ResponseSystemFunction
 {
-	struct Impulse 
-	{
-		b2Vec2 offSetPos;
-		float forceScaler;
-		float angle;
-		float delay;
-		bool onOff = false;
-		std::string id;
-	};
 
 public:
 	ResponseSystemFunction(b2Vec2 offSetPos, float forceScaler, float angle, float delay, std::string id);
 	void Update();
-	bool AddImpulse(Impulse newImpulse);
-	std::vector<Impulse> GetImpulses() { return m_impulses; }
+	void AddImpulse(Impulse* newImpulse);
+	std::vector<Impulse*> GetImpulses() { return m_impulses; }
+	Impulse* GetSpecificImpulse(std::string idToFind);
+
 private:
-	std::vector<Impulse> m_impulses;
+	std::vector<b2Body*> m_bodies;
+	std::vector<Impulse*> m_impulses;
+	Impulse tempImpulse;
 };

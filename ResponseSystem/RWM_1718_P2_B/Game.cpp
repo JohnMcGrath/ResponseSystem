@@ -73,11 +73,19 @@ void Game::update()
 	fRect.y = fBody->GetPosition().y;
 
 	float tempAngle;
-	tempAngle = m_rsSysFun.GetImpulses()[0].forceScaler;
-	std::cout << "ForceScaler: " << tempAngle << std::endl;
+	m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 1;
+	tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
+	std::cout << "ForceScaler 1: " << tempAngle << std::endl;
 
-//	std::cout << "Floor Body: " << fBody->GetPosition().x << ", " << fBody->GetPosition().y << std::endl;
-//	std::cout << "Floor Rect: " << fRect.x << ", " << fRect.y << std::endl;
+	m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 50;
+	tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
+	std::cout << "ForceScaler 2: " << tempAngle << std::endl;
+	//tempAngle = m_rsSysFun.GetImpulses()[0]->forceScaler;//m_rsSysFun->GetImpulses()[0].forceScaler;
+	m_rsSysFun.GetImpulses()[0]->delay = 100.0f;
+	
+	
+	std::cout << "Delay: " << m_rsSysFun.GetImpulses()[0]->delay << std::endl;
+
 	handleInput();
 	render();
 }
