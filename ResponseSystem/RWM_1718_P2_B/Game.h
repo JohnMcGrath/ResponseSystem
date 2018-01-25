@@ -1,5 +1,4 @@
 #pragma once
-
 #include <vector>
 #include "EventListener.h"
 #include "LTimer.h"
@@ -35,7 +34,7 @@ class Game:public EventListener
 	SDL_Window* gameWindow;
 	SDL_Renderer* gameRenderer;
 
-	b2World world = b2World(b2Vec2(0,9.81));
+	b2World world = b2World(b2Vec2(0,0));
 
 	bool gameRunning = true;
 	bool musicPlaying = false;
@@ -62,15 +61,21 @@ public:
 	void update();
 	void render();
 	void loop();
+	void handleInput();
 
 	void onEvent(EventListener::Event);
 
 private:
 	Player* m_player = new Player(gameRenderer);
 
-	b2CircleShape pShape;
+	b2PolygonShape pShape;
+	b2CircleShape pCircleShape;
 	b2BodyDef pBodyDef;
 	b2Body* pBody;
 
+	SDL_Rect fRect;
+	b2PolygonShape fShape;
+	b2BodyDef fBodyDef;
+	b2Body* fBody;
 };
 

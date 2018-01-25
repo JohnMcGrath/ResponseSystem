@@ -18,6 +18,4 @@ void Player::Init()
 
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(m_rect->x, m_rect->y);
-
-	//m_shape->SetAsBox(50.0f, 50.0f, b2Vec2(25,25),0);
 }

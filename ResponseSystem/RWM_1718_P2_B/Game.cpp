@@ -1,13 +1,4 @@
-#include <iostream>
-using namespace std;
-
-#include "LTimer.h"
 #include "Game.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <iostream>
-#include "Box2D\Box2D.h"
-
 
 const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
@@ -23,15 +14,28 @@ Game::Game()
 		std::cout << "Error : PNG Did not load";
 	}
 
+	//Create the Window and Renderer
 	gameWindow = SDL_CreateWindow("Response System", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	gameRenderer = SDL_CreateRenderer(gameWindow, -1, SDL_RENDERER_PRESENTVSYNC);
 
-	pShape.m_p.Set(100, 100);
+	//Player
+	pShape.SetAsBox(25, 25, b2Vec2(12.5,12.5),0);
 	pBodyDef.type = b2_dynamicBody;
 	pBodyDef.position.Set(100, 100);
 
 	pBody = world.CreateBody(&pBodyDef);
 	pBody->CreateFixture(&pShape, 1.0f);
+
+	//Floor
+	//
+	//MAY CAUSE ISSUE; CENTRE PONIT
+	//
+	fShape.SetAsBox(SCREEN_WIDTH / 2, 10,b2Vec2(SCREEN_WIDTH / 2,0),0);
+	fBodyDef.type = b2_kinematicBody;
+	fBodyDef.position.Set(0, 350);
+
+	fBody = world.CreateBody(&fBodyDef);
+	fBody->CreateFixture(&fShape, 1.0f);
 }
 
 
@@ -56,27 +60,56 @@ void Game::update()
 	//Update the Box2D World
 	world.Step(0.1f, 10, 100);
 
-	pBody->ApplyForce(b2Vec2(5, 1), b2Vec2(m_player->GetRect()->w / 2, m_player->GetRect()->h / 2), false);
+	pBody->ApplyForceToCenter(b2Vec2(0, 50000), false);
 
 	m_player->GetRect()->x = pBody->GetPosition().x;
 	m_player->GetRect()->y = pBody->GetPosition().y;
-
 	std::cout << "Player Body: " << pBody->GetPosition().x << ", " << pBody->GetPosition().y << std::endl;
 
+
+	fRect.w = SCREEN_WIDTH;
+	fRect.h = 20;
+	fRect.x = fBody->GetPosition().x;
+	fRect.y = fBody->GetPosition().y;
+
+//	std::cout << "Floor Body: " << fBody->GetPosition().x << ", " << fBody->GetPosition().y << std::endl;
+//	std::cout << "Floor Rect: " << fRect.x << ", " << fRect.y << std::endl;
+	handleInput();
 	render();
 }
 
-//** calls render on all game entities*/
+void Game::handleInput()
+{
+	SDL_Event e;
 
+	while (SDL_PollEvent(&e) != 0)
+	{
+		switch (e.type) {
+		case SDL_KEYDOWN:
+			switch (e.key.keysym.sym) {
+			case SDLK_p:
+				std::cout << "P Pressed";
+				break;
+			case SDLK_w:
+				std::cout << "W Pressed";
+				break;
+			}
+			}
+		}
+}
+//** calls render on all game entities*/
 void Game::render()
 {
 	//Set the background colour
-	SDL_SetRenderDrawColor(gameRenderer, 255, 0, 0, 255);
+	SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(gameRenderer);
 	
+	//Floor
+	SDL_SetRenderDrawColor(gameRenderer, 100, 100, 255, 255);
+	SDL_RenderFillRect(gameRenderer, &fRect);
+
 	SDL_SetRenderDrawColor(gameRenderer, 0, 0, 255, 255);
 	SDL_RenderFillRect(gameRenderer, m_player->GetRect());
-
 	SDL_SetRenderDrawColor(gameRenderer, 255, 255, 255, 255);
 	SDL_RenderDrawRect(gameRenderer, m_player->GetRect());
 
