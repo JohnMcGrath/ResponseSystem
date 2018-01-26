@@ -21,26 +21,33 @@ Game::Game()
 	//Player
 	pShape.SetAsBox(25, 25, b2Vec2(12.5,12.5),0);
 	pBodyDef.type = b2_dynamicBody;
-	pBodyDef.position.Set(100, 100);
+	pBodyDef.position.Set(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 	pBody = world.CreateBody(&pBodyDef);
 	pBody->CreateFixture(&pShape, 1.0f);
 
-	//Floor
-	//
-	//MAY CAUSE ISSUE; CENTRE PONIT
-	//
-	fShape.SetAsBox(SCREEN_WIDTH / 2, 10,b2Vec2(SCREEN_WIDTH / 2,0),0);
-	fBodyDef.type = b2_kinematicBody;
-	fBodyDef.position.Set(0, 350);
-
-	fBody = world.CreateBody(&fBodyDef);
-	fBody->CreateFixture(&fShape, 1.0f);
-
 	m_rsSysFun.AddBody(pBody, "player");
+
 	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 1, 0, 2, "lowerJump");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 270, 0, 2, "standardJump");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 180, 0, 2, "higherJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 5000, 270, 0, 2, "standardJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 900000, 180, 0, 2, "higherJump");
+
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 90, 0, 1, "Up");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 180, 1, 1, "Left");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 270, 2, 1, "Down");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 0, 3, 1, "Right");
+
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 45, 0, 0.9, "UpZig");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, -45, 1, 0.9, "DownZag");
+
+	m_rsSysFun.AddResponsePair("player", "UpZig", "pUpZig");
+	m_rsSysFun.AddResponsePair("player", "DownZag", "pDownZag");
+
+	m_rsSysFun.AddResponsePair("player", "Up", "pUp");
+	m_rsSysFun.AddResponsePair("player", "Left", "pLeft");
+	m_rsSysFun.AddResponsePair("player", "Down", "pDown");
+	m_rsSysFun.AddResponsePair("player", "Right", "pRight");
+
 	m_rsSysFun.AddResponsePair("player", "lowerJump", "lJump");
 	m_rsSysFun.AddResponsePair("player", "standardJump", "sJump");
 	m_rsSysFun.AddResponsePair("player", "higherJump", "hJump");
@@ -76,11 +83,6 @@ void Game::update()
 
 	float tempAngle = 0;
 
-	fRect.w = SCREEN_WIDTH;
-	fRect.h = 20;
-	fRect.x = fBody->GetPosition().x;
-	fRect.y = fBody->GetPosition().y;
-
 	
 	m_rsSysFun.Update();
 
@@ -98,13 +100,18 @@ void Game::handleInput()
 		case SDL_KEYDOWN:
 			switch (e.key.keysym.sym) {
 			case SDLK_q:
-				m_rsSysFun.ActivateResponse("lJump");
+				m_rsSysFun.ActivateResponse("pUp");
+				m_rsSysFun.ActivateResponse("pDownZag");
 				break;
 			case SDLK_w:
-				m_rsSysFun.ActivateResponse("sJump");
+				m_rsSysFun.ActivateResponse("pUp");
+				m_rsSysFun.ActivateResponse("pLeft");
+				m_rsSysFun.ActivateResponse("pDown");
+				m_rsSysFun.ActivateResponse("pRight");
 				break;
 			case SDLK_e:
-				m_rsSysFun.ActivateResponse("hJump");
+				m_rsSysFun.ActivateResponse("pUpZig");
+				m_rsSysFun.ActivateResponse("pDownZag");
 				break;
 			case SDLK_r:
 				pBody->SetTransform(b2Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), pBody->GetAngle());
@@ -119,13 +126,12 @@ void Game::render()
 	//Set the background colour
 	SDL_SetRenderDrawColor(gameRenderer, 0, 0, 0, 255);
 	SDL_RenderClear(gameRenderer);
-	
-	//Floor
-	SDL_SetRenderDrawColor(gameRenderer, 100, 100, 255, 255);
-	SDL_RenderFillRect(gameRenderer, &fRect);
 
+	//Set the colour for the fill rect
 	SDL_SetRenderDrawColor(gameRenderer, 0, 0, 255, 255);
 	SDL_RenderFillRect(gameRenderer, m_player->GetRect());
+
+	//Set the colour for the outline of the rect
 	SDL_SetRenderDrawColor(gameRenderer, 255, 255, 255, 255);
 	SDL_RenderDrawRect(gameRenderer, m_player->GetRect());
 

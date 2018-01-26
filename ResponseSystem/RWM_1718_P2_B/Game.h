@@ -66,10 +66,7 @@ private:
 	b2BodyDef pBodyDef;
 	b2Body* pBody;
 
-	SDL_Rect fRect;
-	b2PolygonShape fShape;
-	b2BodyDef fBodyDef;
-	b2Body* fBody;
+
 
 	ResponseSystemFunction m_rsSysFun = ResponseSystemFunction(b2Vec2(0,0),1,1,1,"1");
 };

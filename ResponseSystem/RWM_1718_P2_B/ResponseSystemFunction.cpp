@@ -109,7 +109,8 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 				{
 					m_responsePairs[i].timer++;
 					tempFloatX = (usingImpulse.angle)*(3.142 / 180);
-					GetSpecificBody(m_responsePairs[i].bodyName)->ApplyLinearImpulseToCenter(b2Vec2(cos(tempFloatX)*100000/* + GetSpecificBody(m_responsePairs[i].bodyName)->GetPosition().x*/, -sin(tempFloatX) * 100000 + GetSpecificBody(m_responsePairs[i].bodyName)->GetPosition().y), true);
+					tempFloatY = usingImpulse.forceScaler;
+					GetSpecificBody(m_responsePairs[i].bodyName)->ApplyForceToCenter(b2Vec2(cos(tempFloatX)*tempFloatY*10000, -sin(tempFloatX) * tempFloatY*10000), true);
 				}
 				else
 				{
