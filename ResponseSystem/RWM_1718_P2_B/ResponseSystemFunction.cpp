@@ -93,15 +93,10 @@ void ResponseSystemFunction::ActivateResponse(std::string id)
 
 void ResponseSystemFunction::CheckIfResponsePairActive()
 {
-	//std::cout << "SIZE OF VECTOR: " << m_responsePairs.size() << std::endl;
 	for (size_t i = 0; i < m_responsePairs.size(); i++)
 	{
 		if (m_responsePairs[i].onOff == true)
 		{
-			//std::cout << m_responsePairs[i].id << " IMPULSE ACTIVATED" << std::endl;
-			//GetSpecificBody(m_responsePairs[i].bodyName)->ApplyForceToCenter(b2Vec2(-10000,-10000),true);
-			//if the impulses time is over, set off
-			
 			usingImpulse = GetSpecificImpulse(m_responsePairs[i].impulseName);
 			if (m_responsePairs[i].delayTimer < (usingImpulse.delay * 60))
 			{
@@ -112,14 +107,8 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 			{
 				if (m_responsePairs[i].timer < (usingImpulse.ttl * 30))
 				{
-					std::cout << m_responsePairs[i].id << std::endl;
-					std::cout << GetSpecificImpulse(m_responsePairs[i].impulseName).angle << std::endl;
 					m_responsePairs[i].timer++;
-					//std::cout << cos(45 * (3.142 / 180)) << ", " << sin(45 * (3.142 / 180)) << std::endl;
-					
 					tempFloatX = (usingImpulse.angle)*(3.142 / 180);
-					std::cout << tempFloatX << std::endl;
-					//std::cout << "Vector: " << cos((usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000) << " , " << sin((-usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000) << std::endl;
 					GetSpecificBody(m_responsePairs[i].bodyName)->ApplyLinearImpulseToCenter(b2Vec2(cos(tempFloatX)*100000/* + GetSpecificBody(m_responsePairs[i].bodyName)->GetPosition().x*/, -sin(tempFloatX) * 100000 + GetSpecificBody(m_responsePairs[i].bodyName)->GetPosition().y), true);
 				}
 				else

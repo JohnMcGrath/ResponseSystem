@@ -39,8 +39,8 @@ Game::Game()
 
 	m_rsSysFun.AddBody(pBody, "player");
 	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 1, 0, 2, "lowerJump");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 45, 0, 2, "standardJump");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 90, 0, 2, "higherJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 270, 0, 2, "standardJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 180, 0, 2, "higherJump");
 	m_rsSysFun.AddResponsePair("player", "lowerJump", "lJump");
 	m_rsSysFun.AddResponsePair("player", "standardJump", "sJump");
 	m_rsSysFun.AddResponsePair("player", "higherJump", "hJump");
@@ -83,17 +83,6 @@ void Game::update()
 
 	
 	m_rsSysFun.Update();
-	
-	//tempAngle = m_rsSysFun.GetSpecificBody("player")->GetPosition().y;
-	//std::cout << "Player y: " << tempAngle << std::endl;
-	
-	//m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 1;
-	//tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
-	//std::cout << "ForceScaler 1: " << tempAngle << std::endl;
-
-	//m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 50;
-	//tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
-	//std::cout << "ForceScaler 2: " << tempAngle << std::endl;
 
 	handleInput();
 	render();
@@ -116,6 +105,9 @@ void Game::handleInput()
 				break;
 			case SDLK_e:
 				m_rsSysFun.ActivateResponse("hJump");
+				break;
+			case SDLK_r:
+				pBody->SetTransform(b2Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), pBody->GetAngle());
 				break;
 			}
 			}
