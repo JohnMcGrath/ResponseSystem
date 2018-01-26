@@ -5,46 +5,26 @@
 #include "Player.h"
 #include "ResponseSystemFunction.h"
 
-/** The game objct whic manages the game loop*/
+/// <summary>
+/// The game objct which handles the update loop of the game
+/// </summary>
 class Game:public EventListener
 {
 	unsigned int lastTime;//time of last update;
 
-	bool pause = true;
-	bool quit;
-	bool nextLevel;
-	bool drownState = false;
+	bool pause = true; //bool to pause
+	bool quit; //bool to quit
 
-	enum GameState {
-		STARTSCREEN,
-		GAMEPLAY,
-		PAUSE,
-		OPTIONS,
-		ENDSCREEN,
-	};
+	SDL_Window* gameWindow; //Game window
+	SDL_Renderer* gameRenderer; //Game Render
 
-	SDL_Window* gameWindow;
-	SDL_Renderer* gameRenderer;
+	b2World world = b2World(b2Vec2(0,0)); //The b2 World, gravity set to (0,0)
 
-	b2World world = b2World(b2Vec2(0,0));
-
-	bool gameRunning = true;
-	bool musicPlaying = false;
-
-
-	bool wallBroke = false;
-	SDL_Rect box;
-	SDL_Point center;
-	SDL_Texture* bWallTexture;
-
-
-	SDL_Texture* startScreenTexture = NULL;
-	SDL_Texture* startScreenIcon = NULL;
-
+	bool gameRunning = true; //Is the game still running
 
 public:
-	Game();
-	~Game();
+	Game(); //Constructor
+	~Game(); //Deconstructor
 
 	bool init();
 

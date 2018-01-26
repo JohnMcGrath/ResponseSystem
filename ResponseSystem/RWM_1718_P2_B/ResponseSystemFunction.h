@@ -86,12 +86,12 @@ private:
 	std::vector<ResponsePair> m_responsePairs; //Vector of response pair
 	std::vector<std::string> m_bodyIDs; //Vector of bodies with IDs
 
-	//Floats used in some calculations
+	//Temp values used in some calculations
 	float tempFloatX = 0;
 	float tempFloatY = 0;
+	Impulse tempImpulse; 
 
-	Impulse tempImpulse; //Impulse used to clone more into vector
-	Impulse usingImpulse; //BodyID used to clone more into vector
+	Impulse protoImpulse; //Impulse used to clone more into vector
 	BodyID protoBodyID; //BodyID used to clone more into vector
 	ResponsePair protoResponsePair; //ResponsePair used to clone more into vector
 };

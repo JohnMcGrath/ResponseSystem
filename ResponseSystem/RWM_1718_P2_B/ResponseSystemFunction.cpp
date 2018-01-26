@@ -24,14 +24,14 @@ void ResponseSystemFunction::CreateImpulse(b2Vec2 offSetPos, float forceScaler, 
 	A copy of this object is passed along and pushed back
 	into the vector of impulses
 	*/
-	tempImpulse.offSetPos = offSetPos;
-	tempImpulse.forceScaler = forceScaler;
-	tempImpulse.angle = angle;
-	tempImpulse.ttl = ttl;
-	tempImpulse.delay = delay;
-	tempImpulse.id = id;
+	protoImpulse.offSetPos = offSetPos;
+	protoImpulse.forceScaler = forceScaler;
+	protoImpulse.angle = angle;
+	protoImpulse.ttl = ttl;
+	protoImpulse.delay = delay;
+	protoImpulse.id = id;
 
-	m_impulses.push_back(tempImpulse);
+	m_impulses.push_back(protoImpulse);
 }
 
 /// <summary>
@@ -157,7 +157,7 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 				m_responsePairs[i].delayTimer = SDL_GetTicks(); //Gets the current time since the app started
 			}
 			
-			usingImpulse = GetSpecificImpulse(m_responsePairs[i].impulseName);
+			tempImpulse = GetSpecificImpulse(m_responsePairs[i].impulseName);
 
 			/*
 			Checks if the time passed since the impulse was turned on is
@@ -167,7 +167,7 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 			The amount of time the delay has occured is calculated by subtracting how much time had
 			passed since starting the app right now and when the count started
 			*/
-			if (SDL_GetTicks() - m_responsePairs[i].delayTimer > (usingImpulse.delay * 1000))
+			if (SDL_GetTicks() - m_responsePairs[i].delayTimer > (tempImpulse.delay * 1000))
 			{
 				if (m_responsePairs[i].timerStarted == false) //Starts count of how long it's been occuring now
 				{
@@ -178,10 +178,10 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 				Checks if the time the response has been on is less than it's time to loive
 				Time is has been on is calculated the same as the delay timer
 				*/
-				if (SDL_GetTicks() - m_responsePairs[i].timer < (usingImpulse.ttl * 1000))
+				if (SDL_GetTicks() - m_responsePairs[i].timer < (tempImpulse.ttl * 1000))
 				{
-					tempFloatX = (usingImpulse.angle)*(3.142 / 180); //Converts the angle to radians
-					tempFloatY = usingImpulse.forceScaler; //Acts as the impulse's scale factor
+					tempFloatX = (tempImpulse.angle)*(3.142 / 180); //Converts the angle to radians
+					tempFloatY = tempImpulse.forceScaler; //Acts as the impulse's scale factor
 					/*
 					Each pixel is treated as a km in regards to the physics so scaler's a multiplied by 10,000
 					so user's don't need to use ridiculously large numbers as scalers.
