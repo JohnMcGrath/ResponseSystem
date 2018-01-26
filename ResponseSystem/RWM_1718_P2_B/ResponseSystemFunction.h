@@ -66,6 +66,9 @@ private:
 	std::vector<float> m_timers;
 	float timer = 0;
 
+	float tempFloatX = 0;
+	float tempFloatY = 0;
+
 	Impulse tempImpulse;
 	Impulse usingImpulse;
 	BodyID protoBodyID;

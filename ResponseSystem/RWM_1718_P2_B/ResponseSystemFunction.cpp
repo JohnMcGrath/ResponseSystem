@@ -112,14 +112,18 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 			{
 				if (m_responsePairs[i].timer < (usingImpulse.ttl * 30))
 				{
-					//std::cout << "ITS ON" << std::endl;
+					std::cout << m_responsePairs[i].id << std::endl;
+					std::cout << GetSpecificImpulse(m_responsePairs[i].impulseName).angle << std::endl;
 					m_responsePairs[i].timer++;
-					std::cout << "Vector: " << cos((usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000) << " , " << sin((usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000) << std::endl;
-					GetSpecificBody(m_responsePairs[i].bodyName)->SetLinearVelocity(b2Vec2(cos((usingImpulse.angle)*(3.142/180)*usingImpulse.forceScaler*100000), sin((usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000)));
+					//std::cout << cos(45 * (3.142 / 180)) << ", " << sin(45 * (3.142 / 180)) << std::endl;
+					
+					tempFloatX = (usingImpulse.angle)*(3.142 / 180);
+					std::cout << tempFloatX << std::endl;
+					//std::cout << "Vector: " << cos((usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000) << " , " << sin((-usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000) << std::endl;
+					GetSpecificBody(m_responsePairs[i].bodyName)->ApplyLinearImpulseToCenter(b2Vec2(cos(tempFloatX)*100000/* + GetSpecificBody(m_responsePairs[i].bodyName)->GetPosition().x*/, -sin(tempFloatX) * 100000 + GetSpecificBody(m_responsePairs[i].bodyName)->GetPosition().y), true);
 				}
 				else
 				{
-				//	std::cout << "ITS OVER" << std::endl;
 					GetSpecificBody(m_responsePairs[i].bodyName)->SetAwake(m_responsePairs[i].continueMomentum);
 					m_responsePairs[i].timer = 0;
 					m_responsePairs[i].onOff = false;

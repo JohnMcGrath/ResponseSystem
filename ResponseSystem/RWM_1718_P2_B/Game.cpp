@@ -38,9 +38,9 @@ Game::Game()
 	fBody->CreateFixture(&fShape, 1.0f);
 
 	m_rsSysFun.AddBody(pBody, "player");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1, 0, 0, 1, "lowerJump");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 5, 90, 0, 2, "standardJump");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 0, 0, 3, "higherJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 1, 0, 2, "lowerJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 45, 0, 2, "standardJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 90, 0, 2, "higherJump");
 	m_rsSysFun.AddResponsePair("player", "lowerJump", "lJump");
 	m_rsSysFun.AddResponsePair("player", "standardJump", "sJump");
 	m_rsSysFun.AddResponsePair("player", "higherJump", "hJump");
@@ -108,13 +108,14 @@ void Game::handleInput()
 		switch (e.type) {
 		case SDL_KEYDOWN:
 			switch (e.key.keysym.sym) {
-			case SDLK_p:
-				std::cout << "P Pressed" << std::endl;
-				m_rsSysFun.ActivateResponse("sJump");
+			case SDLK_q:
+				m_rsSysFun.ActivateResponse("lJump");
 				break;
 			case SDLK_w:
-				std::cout << "W Pressed";
-				m_rsSysFun.ActivateResponse("lJump");
+				m_rsSysFun.ActivateResponse("sJump");
+				break;
+			case SDLK_e:
+				m_rsSysFun.ActivateResponse("hJump");
 				break;
 			}
 			}
