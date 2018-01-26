@@ -9,7 +9,7 @@ ResponseSystemFunction::ResponseSystemFunction(b2Vec2 offSetPos, float forceScal
 	tempImpulse.id = id;
 
 	//Might need to be made as a pointer
-	m_impulses.push_back(&tempImpulse);
+	m_impulses.push_back(tempImpulse);
 }
 void ResponseSystemFunction::CreateImpulse(b2Vec2 offSetPos, float forceScaler, float angle, float delay, float ttl, std::string id)
 {
@@ -20,9 +20,9 @@ void ResponseSystemFunction::CreateImpulse(b2Vec2 offSetPos, float forceScaler, 
 	tempImpulse.delay = delay;
 	tempImpulse.id = id;
 
-	m_impulses.push_back(&tempImpulse);
+	m_impulses.push_back(tempImpulse);
 }
-void ResponseSystemFunction::AddImpulse(Impulse* newImpulse)
+void ResponseSystemFunction::AddImpulse(Impulse newImpulse)
 {
 	m_impulses.push_back(newImpulse);
 }
@@ -46,11 +46,11 @@ ResponsePair ResponseSystemFunction::GetSpecificResponsePair(std::string idToFin
 	}
 	return m_responsePairs[0];
 }
-Impulse* ResponseSystemFunction::GetSpecificImpulse(std::string idToFind)
+Impulse ResponseSystemFunction::GetSpecificImpulse(std::string idToFind)
 {
 	for (size_t i = 0; i < m_impulses.size(); i++)
 	{
-		if (m_impulses[i]->id == idToFind)
+		if (m_impulses[i].id == idToFind)
 		{
 			return m_impulses[i];
 		}
@@ -102,7 +102,7 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 			//GetSpecificBody(m_responsePairs[i].bodyName)->ApplyForceToCenter(b2Vec2(-10000,-10000),true);
 			//if the impulses time is over, set off
 			
-			usingImpulse = *GetSpecificImpulse(m_responsePairs[i].impulseName);
+			usingImpulse = GetSpecificImpulse(m_responsePairs[i].impulseName);
 			if (m_responsePairs[i].delayTimer < (usingImpulse.delay * 60))
 			{
 				m_responsePairs[i].delayTimer++;

@@ -1,8 +1,14 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (RWM_1718_P2_B.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  ResponseSystemFunction.cpp
+c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\responsesystemfunction.cpp(118): warning C4244: 'argument': conversion from 'double' to 'float32', possible loss of data
+  Generating Code...
+  Compiling...
+  Source.cpp
   Game.cpp
 c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\game.cpp(73): warning C4244: '=': conversion from 'const float32' to 'int', possible loss of data
 c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\game.cpp(74): warning C4244: '=': conversion from 'const float32' to 'int', possible loss of data
 c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\game.cpp(81): warning C4244: '=': conversion from 'const float32' to 'int', possible loss of data
 c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\game.cpp(82): warning C4244: '=': conversion from 'const float32' to 'int', possible loss of data
+  Generating Code...
   RWM_1718_P2_B.vcxproj -> C:\Users\User\Desktop\GithubRWM\ResponseSystem\x64\Debug\ResponseSystem.exe
   RWM_1718_P2_B.vcxproj -> C:\Users\User\Desktop\GithubRWM\ResponseSystem\x64\Debug\ResponseSystem.pdb (Partial PDB)

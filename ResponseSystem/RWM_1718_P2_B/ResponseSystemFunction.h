@@ -47,20 +47,20 @@ public:
 	void Update();
 	void CheckIfResponsePairActive();
 
-	void AddImpulse(Impulse* newImpulse);
+	void AddImpulse(Impulse newImpulse);
 	void AddBody(b2Body* newBody, std::string bodyName);
 	void AddResponsePair(std::string bodyId, std::string impulseID, std::string id);
 
 	void ActivateResponse(std::string id);
 	void CreateImpulse(b2Vec2 offSetPos, float forceScaler, float angle, float delay,float ttl, std::string id);
-	std::vector<Impulse*> GetImpulses() { return m_impulses; }
-	Impulse* GetSpecificImpulse(std::string idToFind);
+	std::vector<Impulse> GetImpulses() { return m_impulses; }
+	Impulse GetSpecificImpulse(std::string idToFind);
 	b2Body* GetSpecificBody(std::string idToFind);
 	ResponsePair ResponseSystemFunction::GetSpecificResponsePair(std::string idToFind);
 
 private:
 	std::vector<BodyID*> m_bodies;
-	std::vector<Impulse*> m_impulses;
+	std::vector<Impulse> m_impulses;
 	std::vector<ResponsePair> m_responsePairs;
 	std::vector<std::string> m_bodyIDs;
 	std::vector<float> m_timers;
