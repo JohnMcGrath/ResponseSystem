@@ -45,7 +45,7 @@ class ResponseSystemFunction
 {
 
 public:
-	ResponseSystemFunction(b2Vec2 offSetPos, float forceScaler, float angle, float delay, std::string id);
+	ResponseSystemFunction();
 
 	void Update();
 	void CheckIfResponsePairActive();

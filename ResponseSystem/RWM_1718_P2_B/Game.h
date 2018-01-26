@@ -67,6 +67,6 @@ private:
 
 
 
-	ResponseSystemFunction m_rsSysFun = ResponseSystemFunction(b2Vec2(0,0),1,1,1,"1");
+	ResponseSystemFunction m_rsSysFun = ResponseSystemFunction();
 };
 
