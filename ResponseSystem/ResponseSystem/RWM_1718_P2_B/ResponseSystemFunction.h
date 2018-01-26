@@ -80,6 +80,7 @@ public:
 	b2Body* GetSpecificBody(std::string idToFind); // Gets any specific Body
 	ResponsePair ResponseSystemFunction::GetSpecificResponsePair(std::string idToFind); // Gets any specific ResponsePair
 	void ChangeImpulseValue(float fieldToChange, float newVal, std::string id); //Function To change any impulse's values
+	void SetResponsePairMomentumContinue(bool newVal, std::string id); //Function To change any ResponsePair's values
 
 private:
 	std::vector<BodyID*> m_bodies; //Vector of bodies

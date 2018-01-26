@@ -106,6 +106,22 @@ void ResponseSystemFunction::ChangeImpulseValue(float fieldToChange, float newVa
 		}
 	}
 }
+
+/// <summary>
+/// Allows you to change wether an interaction continues it's momentum after finishing
+/// </summary>
+/// <param name="fieldToChange">The new value for momentum</param>
+/// <param name="id">id of the pair being changed</param>
+void ResponseSystemFunction::SetResponsePairMomentumContinue(bool newVal, std::string id)
+{
+	for (size_t i = 0; i < m_responsePairs.size(); i++) //Go through the vector
+	{
+		if (m_responsePairs[i].id == id)
+		{
+			m_responsePairs[i].continueMomentum = newVal;
+		}
+	}
+}
 /// <summary>
 /// Gets any specific ResponsePair
 /// </summary>
