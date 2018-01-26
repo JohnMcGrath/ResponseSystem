@@ -29,3 +29,23 @@ Impulse* ResponseSystemFunction::GetSpecificImpulse(std::string idToFind)
 	//Better value to be implimented
 	return m_impulses[0];
 }
+
+void ResponseSystemFunction::AddBody(b2Body* newBody,std::string bodyName)
+{
+	protoBodyID.body = newBody;
+	protoBodyID.id = bodyName;
+
+	m_bodies.push_back(&protoBodyID);
+}
+
+b2Body* ResponseSystemFunction::GetSpecificBody(std::string idToFind)
+{
+	for (size_t i = 0; i < m_bodies.size(); i++)
+	{
+		if (m_bodies[i]->id == idToFind)
+		{
+			return m_bodies[i]->body;
+		}
+	}
+	return m_bodies[0]->body;
+}

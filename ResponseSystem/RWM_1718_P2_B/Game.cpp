@@ -64,27 +64,27 @@ void Game::update()
 
 	m_player->GetRect()->x = pBody->GetPosition().x;
 	m_player->GetRect()->y = pBody->GetPosition().y;
-	//std::cout << "Player Body: " << pBody->GetPosition().x << ", " << pBody->GetPosition().y << std::endl;
+	std::cout << "Player Body: " << pBody->GetPosition().x << ", " << pBody->GetPosition().y << std::endl;
 
+	float tempAngle = 0;
 
 	fRect.w = SCREEN_WIDTH;
 	fRect.h = 20;
 	fRect.x = fBody->GetPosition().x;
 	fRect.y = fBody->GetPosition().y;
 
-	float tempAngle;
+	m_rsSysFun.AddBody(pBody, "player");
+	
+	tempAngle = m_rsSysFun.GetSpecificBody("player")->GetPosition().y;
+	std::cout << "Player y: " << tempAngle << std::endl;
+	
 	m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 1;
 	tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
 	std::cout << "ForceScaler 1: " << tempAngle << std::endl;
 
 	m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 50;
 	tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
-	std::cout << "ForceScaler 2: " << tempAngle << std::endl;
-	//tempAngle = m_rsSysFun.GetImpulses()[0]->forceScaler;//m_rsSysFun->GetImpulses()[0].forceScaler;
-	m_rsSysFun.GetImpulses()[0]->delay = 100.0f;
-	
-	
-	std::cout << "Delay: " << m_rsSysFun.GetImpulses()[0]->delay << std::endl;
+	//std::cout << "ForceScaler 2: " << tempAngle << std::endl;
 
 	handleInput();
 	render();
