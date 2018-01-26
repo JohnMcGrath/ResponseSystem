@@ -10,7 +10,9 @@ ResponseSystemFunction::ResponseSystemFunction()
 	std::cout << "Press Q to see: Up and zag down" << std::endl;
 	std::cout << "Press W to see: Around in a square" << std::endl;
 	std::cout << "Press E to see: Zig Zag" << std::endl;
-	std::cout << "Press R to: Reset Position" << std::endl;
+	std::cout << "Press R to: Reset Position" << std::endl << std::endl;
+	std::cout << "Press an arrow key to move in any direction for half a second" << std::endl;
+	std::cout << "Combine the simple and premade advanced moves and mess around" << std::endl;
 }
 
 /// <summary>
@@ -69,6 +71,41 @@ void ResponseSystemFunction::AddResponsePair(std::string bodyId, std::string imp
 	m_responsePairs.push_back(protoResponsePair);
 }
 
+/// <summary>
+/// Allows you to change the value of a pre existing impulse
+/// </summary>
+/// <param name="fieldToChange">The value you'd like to change;
+/// 1 means ForceScaler
+/// 2 means Angle
+/// 3 means Delay
+/// 4 means TTL</param>
+/// <param name="newVal">The newValue you'll be using</param>
+/// <param name="id">The id of impulse you wish to change</param>
+void ResponseSystemFunction::ChangeImpulseValue(float fieldToChange, float newVal,std::string id)
+{
+	for (size_t i = 0; i < m_impulses.size(); i++) //Go through the vector
+	{
+		if (m_impulses[i].id == id) //if you find it
+		{
+			if (fieldToChange == 1) //forcesScaler
+			{
+				m_impulses[i].forceScaler = newVal;
+			}
+			else if (fieldToChange == 2) //Angle
+			{
+				m_impulses[i].angle = newVal;
+			}
+			else if (fieldToChange == 3)  //Delay
+			{
+				m_impulses[i].delay = newVal;
+			}
+			else if (fieldToChange == 4) //Time To Live
+			{
+				m_impulses[i].ttl = newVal;
+			}
+		}
+	}
+}
 /// <summary>
 /// Gets any specific ResponsePair
 /// </summary>

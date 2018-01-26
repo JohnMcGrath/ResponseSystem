@@ -39,6 +39,12 @@ Game::Game()
 	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 900000, 65, 0, 2, "higherJump");
 
 	//Simple direction movements
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 90, 0, 0.5, "instaUp");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 180, 0, 0.5, "instaLeft");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 270, 0, 0.5, "instaDown");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 0, 0, 0.5, "instaRight");
+
+	//Advanced Square movement direction movements
 	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 90, 0, 1, "Up");
 	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 180, 1, 1, "Left");
 	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 270, 2, 1, "Down");
@@ -53,6 +59,12 @@ Game::Game()
 	m_rsSysFun.AddResponsePair("player", "DownZag", "pDownZag");
 
 	//Create pairs between the layer and movement directions
+	m_rsSysFun.AddResponsePair("player", "instaUp", "pInstaUp");
+	m_rsSysFun.AddResponsePair("player", "instaLeft", "pInstaLeft");
+	m_rsSysFun.AddResponsePair("player", "instaDown", "pInstaDown");
+	m_rsSysFun.AddResponsePair("player", "instaRight", "pInstaRight");
+
+	//Create pairs between the layer and advanced movement directions
 	m_rsSysFun.AddResponsePair("player", "Up", "pUp");
 	m_rsSysFun.AddResponsePair("player", "Left", "pLeft");
 	m_rsSysFun.AddResponsePair("player", "Down", "pDown");
@@ -62,6 +74,8 @@ Game::Game()
 	m_rsSysFun.AddResponsePair("player", "lowerJump", "lJump");
 	m_rsSysFun.AddResponsePair("player", "standardJump", "sJump");
 	m_rsSysFun.AddResponsePair("player", "higherJump", "hJump");
+
+	
 }
 
 /// <summary>
@@ -112,17 +126,29 @@ void Game::handleInput()
 		switch (e.type) {
 		case SDL_KEYDOWN: //If a key is pressed
 			switch (e.key.keysym.sym) {
+			case SDLK_UP:
+				m_rsSysFun.ActivateResponse("pInstaUp");
+				break;
+			case SDLK_LEFT:
+				m_rsSysFun.ActivateResponse("pInstaLeft");
+				break;
+			case SDLK_DOWN:
+				m_rsSysFun.ActivateResponse("pInstaDown");
+				break;
+			case SDLK_RIGHT:
+				m_rsSysFun.ActivateResponse("pInstaRight");
+				break;
 			case SDLK_q: //Activates both the pUp and pDownZag together
 				m_rsSysFun.ActivateResponse("pUp");
 				m_rsSysFun.ActivateResponse("pDownZag");
 				break;
-			case SDLK_w:
+			case SDLK_w: //Advanced square movement
 				m_rsSysFun.ActivateResponse("pUp");
 				m_rsSysFun.ActivateResponse("pLeft");
 				m_rsSysFun.ActivateResponse("pDown");
 				m_rsSysFun.ActivateResponse("pRight");
 				break;
-			case SDLK_e:
+			case SDLK_e: //Advanced zig zag
 				m_rsSysFun.ActivateResponse("pUpZig");
 				m_rsSysFun.ActivateResponse("pDownZag");
 				break;
