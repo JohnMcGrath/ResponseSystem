@@ -85,6 +85,7 @@ void ResponseSystemFunction::ActivateResponse(std::string id)
 	{
 		if (m_responsePairs[i].id == id)
 		{
+			std::cout << "IT SHOULD BE ON" << std::endl;
 			m_responsePairs[i].onOff = true;
 		}
 	}
@@ -92,19 +93,18 @@ void ResponseSystemFunction::ActivateResponse(std::string id)
 
 void ResponseSystemFunction::CheckIfResponsePairActive()
 {
-	std::cout << "SIZE OF VECTOR: " << m_responsePairs.size() << std::endl;
+	//std::cout << "SIZE OF VECTOR: " << m_responsePairs.size() << std::endl;
 	for (size_t i = 0; i < m_responsePairs.size(); i++)
 	{
-		std::cout << m_responsePairs[i].id << std::endl;
 		if (m_responsePairs[i].onOff == true)
 		{
-			//std::cout << m_responsePairs[i]->id << " IMPULSE ACTIVATED" << std::endl;
-
+			//std::cout << m_responsePairs[i].id << " IMPULSE ACTIVATED" << std::endl;
+			GetSpecificBody(m_responsePairs[i].bodyName)->ApplyForceToCenter(b2Vec2(-10000,-10000),true);
 			//if the impulses time is over, set off
 		}
 		else
 		{
-		//	std::cout << m_responsePairs[i]->id << " IMPULSE NOT ACTIVATED" << std::endl;
+		//	std::cout << m_responsePairs[i].id << " IMPULSE NOT ACTIVATED" << std::endl;
 		}
 	}
 }

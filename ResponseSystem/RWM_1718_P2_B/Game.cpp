@@ -68,11 +68,11 @@ void Game::update()
 	//Update the Box2D World
 	world.Step(0.1f, 10, 100);
 
-	pBody->ApplyForceToCenter(b2Vec2(0, 50000), false);
+	//pBody->ApplyForceToCenter(b2Vec2(0, 50000), false);
 
 	m_player->GetRect()->x = pBody->GetPosition().x;
 	m_player->GetRect()->y = pBody->GetPosition().y;
-	std::cout << "Player Body: " << pBody->GetPosition().x << ", " << pBody->GetPosition().y << std::endl;
+	//std::cout << "Player Body: " << pBody->GetPosition().x << ", " << pBody->GetPosition().y << std::endl;
 
 	float tempAngle = 0;
 
@@ -109,12 +109,12 @@ void Game::handleInput()
 		case SDL_KEYDOWN:
 			switch (e.key.keysym.sym) {
 			case SDLK_p:
-				std::cout << "P Pressed";
-				m_rsSysFun.ActivateResponse("pJump");
-				//pBody->SetLinearVelocity(b2Vec2(-1, -100));
+				std::cout << "P Pressed" << std::endl;
+				m_rsSysFun.ActivateResponse("sJump");
 				break;
 			case SDLK_w:
 				std::cout << "W Pressed";
+				m_rsSysFun.ActivateResponse("lJump");
 				break;
 			}
 			}
