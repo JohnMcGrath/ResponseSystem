@@ -93,42 +93,57 @@ void ResponseSystemFunction::ActivateResponse(std::string id)
 
 void ResponseSystemFunction::CheckIfResponsePairActive()
 {
-	for (size_t i = 0; i < m_responsePairs.size(); i++)
-	{
-		if (m_responsePairs[i].onOff == true)
+	for (size_t i = 0; i < m_responsePairs.size(); i++) //For loop that goes through all ResponsePairs
+	{	
+		if (m_responsePairs[i].onOff == true) //if any ResponsePair has been turned on
 		{
-			if (m_responsePairs[i].delayTimerStarted == false)
+			if (m_responsePairs[i].delayTimerStarted == false) //if the delay hasn't started being counted yet
 			{
-				m_responsePairs[i].delayTimerStarted = true;
-				m_responsePairs[i].delayTimer = SDL_GetTicks();
+				m_responsePairs[i].delayTimerStarted = true; //will now start counting time
+				m_responsePairs[i].delayTimer = SDL_GetTicks(); //Gets the current time since the app started
 			}
 			
 			usingImpulse = GetSpecificImpulse(m_responsePairs[i].impulseName);
 
-			if (SDL_GetTicks() - m_responsePairs[i].delayTimer < (usingImpulse.delay * 1000))
+			/*
+			Checks if the time passed since the impulse was turned on is
+			greater than the delay of the ResponsePair multiplied by 1000
+			(It's easier for the user to visual time in seconds rather than
+			milliseconds so this will easily convert it for them)
+			The amount of time the delay has occured is calculated by subtracting how much time had
+			passed since starting the app right now and when the count started
+			*/
+			if (SDL_GetTicks() - m_responsePairs[i].delayTimer > (usingImpulse.delay * 1000))
 			{
-			}
-
-			else
-			{
-				if (m_responsePairs[i].timerStarted == false)
+				if (m_responsePairs[i].timerStarted == false) //Starts count of how long it's been occuring now
 				{
-					m_responsePairs[i].timerStarted = true;
-					m_responsePairs[i].timer = SDL_GetTicks();
+					m_responsePairs[i].timerStarted = true; //will now start counting time
+					m_responsePairs[i].timer = SDL_GetTicks(); //Gets the current time since the app started
 				}
+				/*
+				Checks if the time the response has been on is less than it's time to loive
+				Time is has been on is calculated the same as the delay timer
+				*/
 				if (SDL_GetTicks() - m_responsePairs[i].timer < (usingImpulse.ttl * 1000))
 				{
-					m_responsePairs[i].timer++;
-					tempFloatX = (usingImpulse.angle)*(3.142 / 180);
-					tempFloatY = usingImpulse.forceScaler;
+					tempFloatX = (usingImpulse.angle)*(3.142 / 180); //Converts the angle to radians
+					tempFloatY = usingImpulse.forceScaler; //Acts as the impulse's scale factor
+					/*
+					Each pixel is treated as a km in regards to the physics so scaler's a multiplied by 10,000
+					so user's don't need to use ridiculously large numbers as scalers.
+					*/
 					GetSpecificBody(m_responsePairs[i].bodyName)->ApplyForceToCenter(b2Vec2(cos(tempFloatX)*tempFloatY*10000, -sin(tempFloatX) * tempFloatY*10000), true);
 				}
-				else
+				else //The impulse has finished
 				{
+					/*
+					Will stop in place or carry momentmum after finishing depending on whether or
+					not the ResponsePair's moment bool is true or false
+					*/
 					GetSpecificBody(m_responsePairs[i].bodyName)->SetAwake(m_responsePairs[i].continueMomentum);
-					m_responsePairs[i].onOff = false;
-					m_responsePairs[i].delayTimerStarted = false;
-					m_responsePairs[i].timerStarted = false;
+					m_responsePairs[i].onOff = false; //turn the pair off
+					m_responsePairs[i].delayTimerStarted = false; //reset the delay timer
+					m_responsePairs[i].timerStarted = false; //rest the timer
 				}
 			}
 		}
