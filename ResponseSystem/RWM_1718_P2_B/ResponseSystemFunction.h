@@ -31,6 +31,9 @@ struct ResponsePair
 	std::string bodyName;
 	std::string impulseName;
 	bool onOff = false;
+	bool continueMomentum = false;
+	float timer = 0;
+	float delayTimer = 0;
 	std::string id;
 };
 

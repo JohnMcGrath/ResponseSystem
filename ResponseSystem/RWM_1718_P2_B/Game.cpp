@@ -38,9 +38,9 @@ Game::Game()
 	fBody->CreateFixture(&fShape, 1.0f);
 
 	m_rsSysFun.AddBody(pBody, "player");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1, 90, 0.5, 3, "lowerJump");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 5, 90, 0.5, 3, "standardJump");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 10, 90, 0.5, 3, "higherJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1, 90, 0.5, 1, "lowerJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 5, 90, 1, 2, "standardJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 10, 90, 1.5, 3, "higherJump");
 	m_rsSysFun.AddResponsePair("player", "lowerJump", "lJump");
 	m_rsSysFun.AddResponsePair("player", "standardJump", "sJump");
 	m_rsSysFun.AddResponsePair("player", "higherJump", "hJump");
