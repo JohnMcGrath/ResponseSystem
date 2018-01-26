@@ -52,12 +52,12 @@ public:
 	std::vector<Impulse*> GetImpulses() { return m_impulses; }
 	Impulse* GetSpecificImpulse(std::string idToFind);
 	b2Body* GetSpecificBody(std::string idToFind);
-	ResponsePair* ResponseSystemFunction::GetSpecificResponsePair(std::string idToFind);
+	ResponsePair ResponseSystemFunction::GetSpecificResponsePair(std::string idToFind);
 
 private:
 	std::vector<BodyID*> m_bodies;
 	std::vector<Impulse*> m_impulses;
-	std::vector<ResponsePair*> m_responsePairs;
+	std::vector<ResponsePair> m_responsePairs;
 	std::vector<std::string> m_bodyIDs;
 
 	Impulse tempImpulse;

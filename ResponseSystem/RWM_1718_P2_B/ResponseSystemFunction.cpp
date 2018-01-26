@@ -33,13 +33,13 @@ void ResponseSystemFunction::AddResponsePair(std::string bodyId, std::string imp
 	protoResponsePair.impulseName = impulseId;
 	protoResponsePair.id = id;
 
-	m_responsePairs.push_back(&protoResponsePair);
+	m_responsePairs.push_back(protoResponsePair);
 }
-ResponsePair* ResponseSystemFunction::GetSpecificResponsePair(std::string idToFind)
+ResponsePair ResponseSystemFunction::GetSpecificResponsePair(std::string idToFind)
 {
 	for (size_t i = 0; i < m_impulses.size(); i++)
 	{
-		if (m_responsePairs[i]->id == idToFind)
+		if (m_responsePairs[i].id == idToFind)
 		{
 			return m_responsePairs[i];
 		}
@@ -83,9 +83,9 @@ void ResponseSystemFunction::ActivateResponse(std::string id)
 {
 	for (size_t i = 0; i < m_responsePairs.size(); i++)
 	{
-		if (m_responsePairs[i]->id == id)
+		if (m_responsePairs[i].id == id)
 		{
-			m_responsePairs[i]->onOff = true;
+			m_responsePairs[i].onOff = true;
 		}
 	}
 }
@@ -95,8 +95,8 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 	std::cout << "SIZE OF VECTOR: " << m_responsePairs.size() << std::endl;
 	for (size_t i = 0; i < m_responsePairs.size(); i++)
 	{
-		std::cout << m_responsePairs[i]->id << std::endl;
-		if (m_responsePairs[i]->onOff == true)
+		std::cout << m_responsePairs[i].id << std::endl;
+		if (m_responsePairs[i].onOff == true)
 		{
 			//std::cout << m_responsePairs[i]->id << " IMPULSE ACTIVATED" << std::endl;
 
