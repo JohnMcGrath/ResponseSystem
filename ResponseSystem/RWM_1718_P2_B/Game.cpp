@@ -37,8 +37,8 @@ Game::Game()
 	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 270, 2, 1, "Down");
 	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 0, 3, 1, "Right");
 
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 45, 0, 0.9, "UpZig");
-	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, -45, 1, 0.9, "DownZag");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, 45, 0, 1, "UpZig");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1000, -45, 1, 1, "DownZag");
 
 	m_rsSysFun.AddResponsePair("player", "UpZig", "pUpZig");
 	m_rsSysFun.AddResponsePair("player", "DownZag", "pDownZag");

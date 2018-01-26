@@ -9,6 +9,7 @@
 #include <cmath>
 #include "EventListener.h"
 #include "LTimer.h"
+#include "SDL.h"
 
 struct Impulse
 {
@@ -33,8 +34,10 @@ struct ResponsePair
 	std::string impulseName;
 	bool onOff = false;
 	bool continueMomentum = false;
-	float timer = 0;
-	float delayTimer = 0;
+	Uint32 timer = 0;
+	Uint32 delayTimer = 0;
+	bool timerStarted = false;
+	bool delayTimerStarted = false;
 	std::string id;
 };
 

@@ -97,15 +97,26 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 	{
 		if (m_responsePairs[i].onOff == true)
 		{
-			usingImpulse = GetSpecificImpulse(m_responsePairs[i].impulseName);
-			if (m_responsePairs[i].delayTimer < (usingImpulse.delay * 60))
+			if (m_responsePairs[i].delayTimerStarted == false)
 			{
-				m_responsePairs[i].delayTimer++;
+				m_responsePairs[i].delayTimerStarted = true;
+				m_responsePairs[i].delayTimer = SDL_GetTicks();
+			}
+			
+			usingImpulse = GetSpecificImpulse(m_responsePairs[i].impulseName);
+
+			if (SDL_GetTicks() - m_responsePairs[i].delayTimer < (usingImpulse.delay * 1000))
+			{
 			}
 
 			else
 			{
-				if (m_responsePairs[i].timer < (usingImpulse.ttl * 30))
+				if (m_responsePairs[i].timerStarted == false)
+				{
+					m_responsePairs[i].timerStarted = true;
+					m_responsePairs[i].timer = SDL_GetTicks();
+				}
+				if (SDL_GetTicks() - m_responsePairs[i].timer < (usingImpulse.ttl * 1000))
 				{
 					m_responsePairs[i].timer++;
 					tempFloatX = (usingImpulse.angle)*(3.142 / 180);
@@ -115,9 +126,9 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 				else
 				{
 					GetSpecificBody(m_responsePairs[i].bodyName)->SetAwake(m_responsePairs[i].continueMomentum);
-					m_responsePairs[i].timer = 0;
 					m_responsePairs[i].onOff = false;
-					m_responsePairs[i].delayTimer = 0;
+					m_responsePairs[i].delayTimerStarted = false;
+					m_responsePairs[i].timerStarted = false;
 				}
 			}
 		}
