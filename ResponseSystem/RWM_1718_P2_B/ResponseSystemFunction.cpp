@@ -110,15 +110,16 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 
 			else
 			{
-				if (m_responsePairs[i].timer < (usingImpulse.ttl * 60))
+				if (m_responsePairs[i].timer < (usingImpulse.ttl * 30))
 				{
-					std::cout << "ITS ON" << std::endl;
+					//std::cout << "ITS ON" << std::endl;
 					m_responsePairs[i].timer++;
-					GetSpecificBody(m_responsePairs[i].bodyName)->SetLinearVelocity(b2Vec2(4500, 9000));
+					std::cout << "Vector: " << cos((usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000) << " , " << sin((usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000) << std::endl;
+					GetSpecificBody(m_responsePairs[i].bodyName)->SetLinearVelocity(b2Vec2(cos((usingImpulse.angle)*(3.142/180)*usingImpulse.forceScaler*100000), sin((usingImpulse.angle)*(3.142 / 180)*usingImpulse.forceScaler * 100000)));
 				}
 				else
 				{
-					std::cout << "ITS OVER" << std::endl;
+				//	std::cout << "ITS OVER" << std::endl;
 					GetSpecificBody(m_responsePairs[i].bodyName)->SetAwake(m_responsePairs[i].continueMomentum);
 					m_responsePairs[i].timer = 0;
 					m_responsePairs[i].onOff = false;
