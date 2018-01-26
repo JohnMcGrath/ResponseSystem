@@ -74,16 +74,18 @@ void Game::update()
 	fRect.y = fBody->GetPosition().y;
 
 	m_rsSysFun.AddBody(pBody, "player");
+	m_rsSysFun.AddResponsePair("player", "1", "pJump");
+	m_rsSysFun.Update();
 	
-	tempAngle = m_rsSysFun.GetSpecificBody("player")->GetPosition().y;
-	std::cout << "Player y: " << tempAngle << std::endl;
+	//tempAngle = m_rsSysFun.GetSpecificBody("player")->GetPosition().y;
+	//std::cout << "Player y: " << tempAngle << std::endl;
 	
-	m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 1;
-	tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
-	std::cout << "ForceScaler 1: " << tempAngle << std::endl;
+	//m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 1;
+	//tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
+	//std::cout << "ForceScaler 1: " << tempAngle << std::endl;
 
-	m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 50;
-	tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
+	//m_rsSysFun.GetSpecificImpulse("1")->forceScaler = 50;
+	//tempAngle = m_rsSysFun.GetSpecificImpulse("1")->forceScaler;
 	//std::cout << "ForceScaler 2: " << tempAngle << std::endl;
 
 	handleInput();
@@ -101,7 +103,8 @@ void Game::handleInput()
 			switch (e.key.keysym.sym) {
 			case SDLK_p:
 				std::cout << "P Pressed";
-				pBody->SetLinearVelocity(b2Vec2(-1, -100));
+				m_rsSysFun.ActivateResponse("pJump");
+				//pBody->SetLinearVelocity(b2Vec2(-1, -100));
 				break;
 			case SDLK_w:
 				std::cout << "W Pressed";

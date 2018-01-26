@@ -29,6 +29,7 @@ struct ResponsePair
 {
 	std::string bodyName;
 	std::string impulseName;
+	bool onOff = false;
 	std::string id;
 };
 
@@ -39,11 +40,13 @@ public:
 	ResponseSystemFunction(b2Vec2 offSetPos, float forceScaler, float angle, float delay, std::string id);
 
 	void Update();
-
+	void CheckIfResponsePairActive();
 
 	void AddImpulse(Impulse* newImpulse);
 	void AddBody(b2Body* newBody, std::string bodyName);
 	void AddResponsePair(std::string bodyId, std::string impulseID, std::string id);
+
+	void ActivateResponse(std::string id);
 
 	std::vector<Impulse*> GetImpulses() { return m_impulses; }
 	Impulse* GetSpecificImpulse(std::string idToFind);

@@ -69,7 +69,35 @@ b2Body* ResponseSystemFunction::GetSpecificBody(std::string idToFind)
 	return m_bodies[0]->body;
 }
 
+void ResponseSystemFunction::ActivateResponse(std::string id)
+{
+	for (size_t i = 0; i < m_responsePairs.size(); i++)
+	{
+		if (m_responsePairs[i]->id == id)
+		{
+			m_responsePairs[i]->onOff = true;
+		}
+	}
+}
+
+void ResponseSystemFunction::CheckIfResponsePairActive()
+{
+	for (size_t i = 0; i < m_responsePairs.size(); i++)
+	{
+		if (m_responsePairs[i]->onOff == true)
+		{
+			std::cout << "IMPULSE ACTIVATED" << std::endl;
+
+			//if the impulses time is over, set off
+		}
+		else
+		{
+			std::cout << "IMPULSE NOT ACTIVATED" << std::endl;
+		}
+	}
+}
+
 void ResponseSystemFunction::Update()
 {
-
+	CheckIfResponsePairActive();
 }
