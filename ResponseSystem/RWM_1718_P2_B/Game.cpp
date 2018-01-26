@@ -36,6 +36,14 @@ Game::Game()
 
 	fBody = world.CreateBody(&fBodyDef);
 	fBody->CreateFixture(&fShape, 1.0f);
+
+	m_rsSysFun.AddBody(pBody, "player");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 1, 90, 0.5, 3, "lowerJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 5, 90, 0.5, 3, "standardJump");
+	m_rsSysFun.CreateImpulse(b2Vec2(0, 0), 10, 90, 0.5, 3, "higherJump");
+	m_rsSysFun.AddResponsePair("player", "lowerJump", "lJump");
+	m_rsSysFun.AddResponsePair("player", "standardJump", "sJump");
+	m_rsSysFun.AddResponsePair("player", "higherJump", "hJump");
 }
 
 
@@ -73,8 +81,7 @@ void Game::update()
 	fRect.x = fBody->GetPosition().x;
 	fRect.y = fBody->GetPosition().y;
 
-	m_rsSysFun.AddBody(pBody, "player");
-	m_rsSysFun.AddResponsePair("player", "1", "pJump");
+	
 	m_rsSysFun.Update();
 	
 	//tempAngle = m_rsSysFun.GetSpecificBody("player")->GetPosition().y;

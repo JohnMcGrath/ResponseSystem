@@ -14,6 +14,7 @@ struct Impulse
 	b2Vec2 offSetPos;
 	float forceScaler;
 	float angle;
+	float ttl;
 	float delay;
 	bool onOff = false;
 	std::string id;
@@ -47,7 +48,7 @@ public:
 	void AddResponsePair(std::string bodyId, std::string impulseID, std::string id);
 
 	void ActivateResponse(std::string id);
-
+	void CreateImpulse(b2Vec2 offSetPos, float forceScaler, float angle, float delay,float ttl, std::string id);
 	std::vector<Impulse*> GetImpulses() { return m_impulses; }
 	Impulse* GetSpecificImpulse(std::string idToFind);
 	b2Body* GetSpecificBody(std::string idToFind);

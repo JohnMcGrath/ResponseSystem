@@ -11,7 +11,17 @@ ResponseSystemFunction::ResponseSystemFunction(b2Vec2 offSetPos, float forceScal
 	//Might need to be made as a pointer
 	m_impulses.push_back(&tempImpulse);
 }
+void ResponseSystemFunction::CreateImpulse(b2Vec2 offSetPos, float forceScaler, float angle, float delay, float ttl, std::string id)
+{
+	tempImpulse.offSetPos = offSetPos;
+	tempImpulse.forceScaler = forceScaler;
+	tempImpulse.angle = angle;
+	tempImpulse.ttl = ttl;
+	tempImpulse.delay = delay;
+	tempImpulse.id = id;
 
+	m_impulses.push_back(&tempImpulse);
+}
 void ResponseSystemFunction::AddImpulse(Impulse* newImpulse)
 {
 	m_impulses.push_back(newImpulse);
@@ -82,17 +92,19 @@ void ResponseSystemFunction::ActivateResponse(std::string id)
 
 void ResponseSystemFunction::CheckIfResponsePairActive()
 {
+	std::cout << "SIZE OF VECTOR: " << m_responsePairs.size() << std::endl;
 	for (size_t i = 0; i < m_responsePairs.size(); i++)
 	{
+		std::cout << m_responsePairs[i]->id << std::endl;
 		if (m_responsePairs[i]->onOff == true)
 		{
-			std::cout << "IMPULSE ACTIVATED" << std::endl;
+			//std::cout << m_responsePairs[i]->id << " IMPULSE ACTIVATED" << std::endl;
 
 			//if the impulses time is over, set off
 		}
 		else
 		{
-			std::cout << "IMPULSE NOT ACTIVATED" << std::endl;
+		//	std::cout << m_responsePairs[i]->id << " IMPULSE NOT ACTIVATED" << std::endl;
 		}
 	}
 }
