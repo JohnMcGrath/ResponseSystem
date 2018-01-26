@@ -59,8 +59,11 @@ private:
 	std::vector<Impulse*> m_impulses;
 	std::vector<ResponsePair> m_responsePairs;
 	std::vector<std::string> m_bodyIDs;
+	std::vector<float> m_timers;
+	float timer = 0;
 
 	Impulse tempImpulse;
+	Impulse usingImpulse;
 	BodyID protoBodyID;
 	ResponsePair protoResponsePair;
 };

@@ -99,12 +99,27 @@ void ResponseSystemFunction::CheckIfResponsePairActive()
 		if (m_responsePairs[i].onOff == true)
 		{
 			//std::cout << m_responsePairs[i].id << " IMPULSE ACTIVATED" << std::endl;
-			GetSpecificBody(m_responsePairs[i].bodyName)->ApplyForceToCenter(b2Vec2(-10000,-10000),true);
+			//GetSpecificBody(m_responsePairs[i].bodyName)->ApplyForceToCenter(b2Vec2(-10000,-10000),true);
 			//if the impulses time is over, set off
-		}
-		else
-		{
-		//	std::cout << m_responsePairs[i].id << " IMPULSE NOT ACTIVATED" << std::endl;
+			
+			usingImpulse = *GetSpecificImpulse(m_responsePairs[i].impulseName);
+			if (timer < (usingImpulse.delay * 60))
+			{
+				std::cout << "ITS ON" << std::endl;
+				timer++;
+				GetSpecificBody(m_responsePairs[i].bodyName)->SetLinearVelocity(b2Vec2(4500, 9000));
+			//	GetSpecificBody(m_responsePairs[i].bodyName)->ApplyLinearImpulseToCenter(b2Vec2(0, -9000), true);
+				//GetSpecificBody(m_responsePairs[i].bodyName)->
+				
+			//	GetSpecificBody(m_responsePairs[i].bodyName)->ApplyLinearImpulse(usingImpulse.offSetPos, b2Vec2(-1000000, -1000000), true);
+			}
+			else
+			{
+				std::cout << "ITS Over" << std::endl;
+				GetSpecificBody(m_responsePairs[i].bodyName)->SetAwake(false);
+				timer = 0;
+				m_responsePairs[i].onOff = false;
+			}
 		}
 	}
 }
