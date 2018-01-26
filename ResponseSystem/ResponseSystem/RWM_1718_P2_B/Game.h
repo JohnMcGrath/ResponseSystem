@@ -33,7 +33,7 @@ public:
 	void render(); //Renderer
 	void loop(); //Calculates the update cycles
 	void handleInput(); //Handles player input
-
+	void Game::onEvent(EventListener::Event evt); //Event handlier
 private:
 	Player* m_player = new Player(gameRenderer); //The player object
 
@@ -43,7 +43,7 @@ private:
 	b2Body* pBody;
 
 
-
+	
 	ResponseSystemFunction m_rsSysFun = ResponseSystemFunction();
 };
 

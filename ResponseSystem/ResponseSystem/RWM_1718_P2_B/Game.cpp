@@ -174,3 +174,9 @@ void Game::loop()
 		SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
 	}
 }
+/// <summary>
+/// Event handlier
+/// </summary>
+void Game::onEvent(EventListener::Event evt) 
+{
+}

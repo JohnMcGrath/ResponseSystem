@@ -6,6 +6,11 @@
 /// <param name="offSetPos">Where on the body that the force will be applied</param>
 ResponseSystemFunction::ResponseSystemFunction()
 {
+	//Tutorial message for users
+	std::cout << "Press Q to see: Up and zag down" << std::endl;
+	std::cout << "Press W to see: Around in a square" << std::endl;
+	std::cout << "Press E to see: Zig Zag" << std::endl;
+	std::cout << "Press R to: Reset Position" << std::endl;
 }
 
 /// <summary>
@@ -77,6 +82,7 @@ ResponsePair ResponseSystemFunction::GetSpecificResponsePair(std::string idToFin
 			return m_responsePairs[i];
 		}
 	}
+	std::cout << "No response pair with id: " << idToFind << "; found" << std::endl;
 	return m_responsePairs[0];
 }
 
@@ -93,6 +99,7 @@ Impulse ResponseSystemFunction::GetSpecificImpulse(std::string idToFind)
 			return m_impulses[i];
 		}
 	}
+	std::cout << "No impulse with id: " << idToFind << "; found" << std::endl;
 	return m_impulses[0];
 }
 
@@ -122,6 +129,7 @@ b2Body* ResponseSystemFunction::GetSpecificBody(std::string idToFind)
 			return m_bodies[i]->body;
 		}
 	}
+	std::cout << "No body with id: " << idToFind << "; found" << std::endl;
 	return m_bodies[0]->body;
 }
 
