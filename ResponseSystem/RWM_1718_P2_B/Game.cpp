@@ -101,6 +101,7 @@ void Game::handleInput()
 			switch (e.key.keysym.sym) {
 			case SDLK_p:
 				std::cout << "P Pressed";
+				pBody->SetLinearVelocity(b2Vec2(-1, -100));
 				break;
 			case SDLK_w:
 				std::cout << "W Pressed";

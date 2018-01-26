@@ -17,6 +17,25 @@ void ResponseSystemFunction::AddImpulse(Impulse* newImpulse)
 	m_impulses.push_back(newImpulse);
 }
 
+void ResponseSystemFunction::AddResponsePair(std::string bodyId, std::string impulseId, std::string id)
+{
+	protoResponsePair.bodyName = bodyId;
+	protoResponsePair.impulseName = impulseId;
+	protoResponsePair.id = id;
+
+	m_responsePairs.push_back(&protoResponsePair);
+}
+ResponsePair* ResponseSystemFunction::GetSpecificResponsePair(std::string idToFind)
+{
+	for (size_t i = 0; i < m_impulses.size(); i++)
+	{
+		if (m_responsePairs[i]->id == idToFind)
+		{
+			return m_responsePairs[i];
+		}
+	}
+	return m_responsePairs[0];
+}
 Impulse* ResponseSystemFunction::GetSpecificImpulse(std::string idToFind)
 {
 	for (size_t i = 0; i < m_impulses.size(); i++)
@@ -48,4 +67,9 @@ b2Body* ResponseSystemFunction::GetSpecificBody(std::string idToFind)
 		}
 	}
 	return m_bodies[0]->body;
+}
+
+void ResponseSystemFunction::Update()
+{
+
 }

@@ -4,5 +4,9 @@ c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\game.cpp(65): warni
 c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\game.cpp(66): warning C4244: '=': conversion from 'const float32' to 'int', possible loss of data
 c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\game.cpp(73): warning C4244: '=': conversion from 'const float32' to 'int', possible loss of data
 c:\users\user\desktop\githubrwm\responsesystem\rwm_1718_p2_b\game.cpp(74): warning C4244: '=': conversion from 'const float32' to 'int', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Source.cpp
+  ResponseSystemFunction.cpp
   RWM_1718_P2_B.vcxproj -> C:\Users\User\Desktop\GithubRWM\ResponseSystem\x64\Debug\ResponseSystem.exe
   RWM_1718_P2_B.vcxproj -> C:\Users\User\Desktop\GithubRWM\ResponseSystem\x64\Debug\ResponseSystem.pdb (Partial PDB)
